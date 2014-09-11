@@ -1,0 +1,83 @@
+doctype html
+html
+    head
+        title='Knight Capital Management'
+        link(rel='stylesheet', href='/public/stylesheets/main.css')
+        link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css')
+        link(rel='stylesheet', href='/public/js/bootstrap/dist/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/public/js/jasny-bootstrap/dist/css/jasny-bootstrap.min.css')
+        link(rel='stylesheet', href='/public/js/angular-xeditable/dist/css/xeditable.css')
+        link(rel='stylesheet', href='/public/js/angular-toastr/dist/angular-toastr.min.css')
+        link(rel='stylesheet', href='/public/js/angular-off-canvas/off-canvas.css')
+        link(rel='stylesheet', href='/public/js/angular-feeds/app/angular-feeds/angular-feeds.min.css')
+        script(src='/public/js/jquery/jquery.min.js')
+        script(src='/public/js/bootstrap/dist/js/bootstrap.min.js')
+        script(src='/public/js/jasny-bootstrap/dist/js/jasny-bootstrap.min.js')
+        script(src='/public/js/angular/angular.min.js')
+        script(src='/public/js/angular-route/angular-route.min.js')
+        script(src="/public/js/angular-sanitize/angular-sanitize.min.js")
+        script(src="/public/js/tinymce/tinymce.min.js")
+        script(src="/public/js/angular-ui-tinymce/src/tinymce.js")
+        script(src="/public/js/angular-xeditable/dist/js/xeditable.min.js")
+        script(src='/public/js/angular-animate/angular-animate.min.js')
+        script(src="/public/js/angular-toastr/dist/angular-toastr.min.js")
+        script(src="/public/js/ng-socket-io/ng-socket-io.min.js")
+        script(src="https://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22feeds%22%2C%22version%22%3A%221.0%22%2C%22nocss%22%3Atrue%7D%5D%7D")
+        script(src="/public/js/angular-feeds/app/angular-feeds/angular-feeds.js")
+        
+    body
+        #sidebar.navmenu.navmenu-fixed-right.offcanvas(ng-app='sidebarApp', ng-controller='sidebarCtrl')
+            feed(summary='true', url='http://seekingalpha.com/market_currents.xml', count='5')
+        navbar.navbar-default.navbar-fixed-top(role='navigation')
+            .container
+                .navbar-header
+                    button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                        span.sr-only Toggle navigation
+                        span.icon-bar 
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand(href='/') Knight Capital Management
+                .navbar-collapse.collapse
+                    ul.nav.navbar-nav
+                        li.active
+                            a(href='#') Home
+                        li
+                            a(href='#about') About
+                        li
+                            a(href='#contact') Contact
+                        li.dropdown
+                            a.dropdown-toggle(href='#', data-toggle='dropdown') Admin
+                                span.caret
+                            ul.dropdown-menu(role='menu')
+                                li
+                                    a(href='/finintel') Financial Intel
+                                li
+                                    a(href='/articles') Articles
+                                li
+                                    a(href='/strategy') Strategy
+                    ul.nav.navbar-nav.navbar-right
+                        li(style='float:right')
+                        button.navbar-toggle(type='button', data-toggle='offcanvas', data-target='#sidebar', data-canvas='body',style='display:block')
+                            span.icon-bar
+                            span.icon-bar
+                            span.icon-bar
+                        if username
+                            li.dropdown(style='float:right')
+                                a.dropdown-toggle(href='#', data-toggle='dropdown') Hello #{username}
+                                    span.caret
+                                ul.dropdown-menu
+                                    li
+                                        a(href='/auth/logout') Logout
+                        else
+                            li.dropdown(style='float:right')
+                                a.dropdown-toggle(href='#', data-toggle='dropdown') Hello Guest
+                                    span.caret
+                                ul.dropdown-menu
+                                    li
+                                        a(href='/auth/login') Login
+
+
+        .container.mainpage
+            block content
+            script(src='/controllers/sidebar.js')
+

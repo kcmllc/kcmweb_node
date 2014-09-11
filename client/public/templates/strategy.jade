@@ -1,0 +1,92 @@
+extends layout
+block content
+    h1 Strategy
+    #strategy.container(ng-controller='strategyCtrl')
+        table.table.table-condensed
+            thead
+                tr
+                    th Ticker
+                    th Cycle Position
+                    th Macro Strategy
+                    th Tactical Strategy
+                    th Guidance
+                    th Portfolio
+                    th Watchlist
+                    th
+            tbody
+                tr(ng-repeat='strategy in strategies')
+                    td {{strategy.ticker}}
+                    td
+                        select(ng-model='strategy.cycle_position') {{strategy.cycle_position}}
+                            option(value='Early') Early
+                            option(value='Mid') Mid
+                            option(value='Late') Late
+                    td
+                        select(ng-model='strategy.macro_strategy') {{strategy.macro_strategy}}
+                            option(value='Income') Income
+                            option(value='Domestic Growth') Domestic Growth
+                            option(value='Global Growth') Global Growth
+                            option(value='Defensive') Defensive
+                    td
+                        select(ng-model='strategy.tactical_strategy') {{strategy.tactical_strategy}}
+                            option(value='Inflation Hedge') Inflation Hedge
+                            option(value='Income') Income
+                    td
+                        select(ng-model='strategy.guidance') {{strategy.guidance}}
+                            option(value='Buy') Buy
+                            option(value='Hold') Hold
+                            option(value='Sell') Sell
+                            option(value='Short') Short
+                    td
+                        input(type='checkbox', ng-model='strategy.portfolio')
+                    td
+                        input(type='checkbox', ng-model='strategy.watchlist')
+                    td
+                        button.btn.btn-primary(ng-click='update(strategy)') Update
+        .panel.panel-default
+           .panel-heading
+                .h3.panel-title(style='text-align: center') Add Strategy
+            .panel-body
+                table.table('newstrategytable')
+                    thead
+                        tr
+                            th Ticker
+                            th Cycle Position
+                            th Macro Strategy
+                            th Tactical Strategy
+                            th Guidance
+                            th Portfolio
+                            th Watchlist
+                            th
+                    tbody
+                        tr
+                            td
+                                input(type='text', ng-model='newstrategy.ticker')
+                            td
+                                 select(ng-model='newstrategy.cycle_position')
+                                    option(value='Early') Early
+                                    option(value='Mid') Mid
+                                    option(value='Late') Late
+                            td
+                                select(ng-model='newstrategy.macro_strategy')
+                                    option(value='Income') Income
+                                    option(value='Domestic Growth') Domestic Growth
+                                    option(value='Global Growth') Global Growth
+                                    option(value='Defensive') Defensive
+                            td
+                                select(ng-model='newstrategy.tactical_strategy')
+                                    option(value='Inflation Hedge') Inflation Hedge
+                                    option(value='Income') Income
+                            td
+                                select(ng-model='newstrategy.guidance')
+                                    option(value='Buy') Buy
+                                    option(value='Hold') Hold
+                                    option(value='Sell') Sell
+                                    option(value='Short') Short
+                            td
+                                input(type='checkbox', ng-model='newstrategy.portfolio')
+                            td
+                                input(type='checkbox', ng-model='newstrategy.watchlist')
+                            td
+                                button.btn.btn-primary(ng-click='create(newstrategy)') Add
+    script(src='/controllers/strategy.js')

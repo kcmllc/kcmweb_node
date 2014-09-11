@@ -1,0 +1,31 @@
+extends layout
+block content
+    h1 News Articles
+    .container(ng-app='articles', ng-controller='articlesCtrl')
+        label Publication Name:
+        p {{article.publication_name}}
+        label Article Title:
+        p {{article.article_title}}
+        label Publication Date:
+        p {{article.publication_date | date:'MMM dd yyyy'}}
+        .div
+            span(ng-bind-html='article.article_text')
+        label Article Tags
+        br
+        //p(id='tags') {{article.article_tags}}
+        //input(type='text', id='edit_tags', ng-model='article.article_tags', style='display:none')
+        a(href='#', editable-text='article.article_tags') {{article.article_tags}}
+        br
+        label Article Ticker
+        br
+        //p(id='ticker') {{article.ticker}}
+        //input(type='text', id='edit_ticker', ng-model='article.ticker', style='display:none')
+        a(href='#', editable-text='article.ticker') {{article.ticker}}
+        br
+        label Article Thoughts & Response
+        br
+        //p(id='thoughts_response') {{article.thoughts_response}}
+        //input(type='text', id='edit_thoughts_response', ng-model='article.thoughts_response', style='display:none')
+        a(href='#', editable-text='article.thoughts_response') {{article.thoughts_response}}
+        button.btn.btn-info.pull-right(id='submit', ng-click='submit()') Save Article
+        script(src='/controllers/articles.js')

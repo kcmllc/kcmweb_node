@@ -1,0 +1,129 @@
+extends layout
+block content
+    h1 Financial Intel
+    #finintel.container(ng-controller='finintelCtrl')
+        .row
+            form.navbar-form.pull-right(role='form')
+                .form-group
+                    input.form-control(type='text', placeholder='Enter Ticker', ng-model='ticker')
+                .form-group
+                    button.btn.btn-default.pull-right(type='submit', ng-click='getTicker()') Search
+        .panel.panel-default
+            .panel-heading
+                .h3.panel-title(style='text-align: center') Company Overview
+            .panel-body
+                table.table(id='companytable')
+                    thead
+                        tr
+                            th Ticker
+                            th Company Name
+                            th Sector
+                            th Industry
+                            th Country
+                            th Market Cap
+                            th Next Earnings Date
+                    tbody
+                        tr
+                            td {{tickerdata[0].ticker}}
+                            td {{tickerdata[0].company_name}}
+                            td {{tickerdata[0].company_sector}}
+                            td {{tickerdata[0].company_industry}}
+                            td {{tickerdata[0].company_country}}
+                            td {{tickerdata[0].market_cap}}M
+                            td {{tickerdata[0].next_earnings_date}}
+        br
+        .panel.panel-default
+           .panel-heading
+                .h3.panel-title(style='text-align: center') Profitability & Effectiveness
+            .panel-body
+                table.table('profitabilitytable')
+                    thead
+                        tr
+                            th Dividend Yield
+                            th Return on Assets
+                            th Return on Equity
+                            th Return on Investment
+                            th Current Ratio
+                            th Quick Ratio
+                            th Long Term Debt/Equity
+                            th Debt/Equity
+                            th Gross Margin
+                            th Operating Margin
+                            th Profit Margin
+                    tbody
+                        tr
+                            td {{tickerdata[0].dividend_yield}}
+                            td {{tickerdata[0].return_on_assets}}
+                            td {{tickerdata[0].return_on_equity}}
+                            td {{tickerdata[0].return_on_investment}}
+                            td {{tickerdata[0].current_ratio}}
+                            td {{tickerdata[0].quick_ratio}}
+                            td {{tickerdata[0].long_term_debt_to_equity}}
+                            td {{tickerdata[0].debt_to_equity}}
+                            td {{tickerdata[0].gross_margin}}
+                            td {{tickerdata[0].operating_margin}}
+                            td {{tickerdata[0].profit_margin}}
+        br
+        .panel.panel-default
+            .panel-heading
+                .h3.panel-title(style='text-align: center') Valuation
+            .panel-body
+                table.table(id='valuationtable')
+                    thead
+                        tr
+                        th Forward Price to Earnings
+                        th PEG Ratio
+                        th Price to Sales
+                        th Price to Book
+                        th Price to Cash
+                        th Price to FCF
+                        th EPS Growth This Year
+                        th EPS Growth Next Year
+                        th EPS Growth Past 5 Years
+                        th EPS Growth Next 5 Years
+                        th Sales Growth Past 5 Years
+                    tbody
+                        tr
+                            td {{tickerdata[0].forward_price_to_earnings}}
+                            td {{tickerdata[0].price_earnings_growth}}
+                            td {{tickerdata[0].price_to_sales}}
+                            td {{tickerdata[0].price_to_book}}
+                            td {{tickerdata[0].price_to_cash}}
+                            td {{tickerdata[0].price_to_fcf}}
+                            td {{tickerdata[0].eps_growth_this_year}}
+                            td {{tickerdata[0].eps_growth_next_year}}
+                            td {{tickerdata[0].eps_growth_past_five_years}}
+                            td {{tickerdata[0].eps_growth_next_five_years}}
+                            td {{tickerdata[0].sales_growth_past_five_years}}
+
+        br
+        .panel.panel-default
+            .panel-heading
+                .h3.panel-title(style='text-align: center') Company News
+            .panel-body
+                table.table(id='articletable')
+                    thead
+                        tr
+                            th Title
+                            th Article Date
+                            th Thoughts/Response
+                    tbody
+                        tr(ng-repeat='article in articles')
+                            td(style='width: 300px')
+                                a(href='/articles/id/{{article.article_id}}') {{article.article_title}}
+                            td(style='width: 100px') {{article.publication_date | date:'MMM dd yyyy'}}
+                            td {{article.thoughts_response}}
+        br
+        .panel.panel-default
+            .panel-heading
+                .h3.panel-title(style='text-align: center') Chart
+            .panel-body
+                table.table(id='charttable')
+
+                    tbody
+                    tr
+                        td(style='text-align: center')
+                            img(src='http://finviz.com/chart.ashx?t={{tickerdata[0].ticker}}&ty=c&ta=1&p=d&s=l')
+
+    span #{data}
+    script(src='/controllers/finintel.js')
